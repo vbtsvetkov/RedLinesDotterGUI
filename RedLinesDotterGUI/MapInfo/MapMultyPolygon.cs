@@ -27,17 +27,7 @@ namespace RedLinesDotterGUI.MapInfo
             }
         }
 
-        internal async Task FillPointsAsync()
-        {
-            await GetPolygonsDotsAmountAsync().ConfigureAwait(false);
-            
-            await Task.Run(() => {
-                foreach (var polygon in polygonsDotsdAmount.OrderBy(p => p.Key))
-                {
-                    FillPoints(polygon.Value, polygon.Key);
-                }
-            }).ConfigureAwait(false);
-        }
+        
 
         private void FillPoints(int dotsAmount, int polygonIndex)
         {
@@ -47,16 +37,6 @@ namespace RedLinesDotterGUI.MapInfo
             }
         }
 
-        private async Task FillPointsAsync(int dotsAmount, int polygonIndex)
-        {
-            await Task.Run(() => {
-                for (int dotIndex = 1; dotIndex <= dotsAmount; dotIndex++)
-                {
-                    Points.Add(base.GetPoint(dotIndex, polygonIndex));
-                }
-            }).ConfigureAwait(false);
-        }
-
         private void GetPolygonsDotsAmount()
         {
             for (int polygonIndex = 1; polygonIndex <= _polygonsAmount; polygonIndex++)
@@ -64,6 +44,19 @@ namespace RedLinesDotterGUI.MapInfo
                 var dotsAmount = MapInfoCommand.GetPolygonDotsAmount(polygonIndex);
                 polygonsDotsdAmount.Add(polygonIndex, dotsAmount);
             }
+        }
+
+        #region Async
+        internal override async Task FillPointsAsync()
+        {
+            await GetPolygonsDotsAmountAsync().ConfigureAwait(false);
+
+            await Task.Run(() => {
+                foreach (var polygon in polygonsDotsdAmount.OrderBy(p => p.Key))
+                {
+                    FillPoints(polygon.Value, polygon.Key);
+                }
+            }).ConfigureAwait(false);
         }
 
         private async Task GetPolygonsDotsAmountAsync()
@@ -78,5 +71,6 @@ namespace RedLinesDotterGUI.MapInfo
                 }
             }).ConfigureAwait(false);
         }
+        #endregion
     }
 }

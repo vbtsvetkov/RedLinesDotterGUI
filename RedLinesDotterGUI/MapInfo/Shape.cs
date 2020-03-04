@@ -1,6 +1,7 @@
 ﻿using MapInfoWrap;
 using RedLinesDotterGUI.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RedLinesDotterGUI.MapInfo
 {
@@ -36,6 +37,15 @@ namespace RedLinesDotterGUI.MapInfo
 
         #region AsyncMethods
 
+        internal virtual async Task FillPointsAsync()
+        {
+            await Task.Run(() => {
+                for (int i = 1; i <= _dotsAmount; i++)
+                {
+                    Points.Add(GetPoint(i));
+                }
+            }).ConfigureAwait(false);
+        }
             
 
         #endregion
