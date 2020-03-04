@@ -1,24 +1,21 @@
 ﻿using MapInfoWrap;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using RedLinesDotterGUI.Services;
+using System.Diagnostics.Contracts;
 
 namespace RedLinesDotterGUI.MapInfo
 {
     public sealed class MapInfoObject
     {
-        private readonly Table table;       
-        
+        private readonly Table table;
+
 
         internal Shape CurrentShape { get; private set; }
 
         public MapInfoObject(Table table)
         {
+            Contract.Requires(table != null);
             this.table = table;
-            
+
             MapInfoCommand.FetchFirstObject(table.Name);
         }
 
