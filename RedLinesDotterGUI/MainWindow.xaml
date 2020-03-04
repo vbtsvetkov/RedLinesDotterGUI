@@ -1,0 +1,18 @@
+﻿<Window x:Class="RedLinesDotterGUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RedLinesDotterGUI"
+        xmlns:y="clr-namespace:RedLinesDotterGUI.Views"
+        mc:Ignorable="d"
+        Title="Dotter" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <y:DotterPane x:Name="dotterPane"/>
+        </Grid>
+    </Grid>
+</Window>
